@@ -26,8 +26,6 @@ import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.http.MediaType;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
-import org.springframework.test.web.servlet.setup.MockMvcBuilders;
-import org.springframework.web.servlet.mvc.method.annotation.ExceptionHandlerExceptionResolver;
 
 @SpringBootTest
 @AutoConfigureMockMvc
@@ -81,6 +79,7 @@ public class ProductControllerTest {
 
 
   @Test
+
   public void createProductShouldReturnOk() throws Exception {
     when(productService.saveOrUpdateProduct(Mockito.any())).thenReturn(product);
     this.mockMvc.perform(post("/api/product").accept(MediaType.APPLICATION_JSON)
@@ -107,7 +106,6 @@ public class ProductControllerTest {
         .content(mapToJson(product))).andDo(print()).andExpect(status().isOk())
         .andExpect(status().isOk());
   }
-
 
 
   private String mapToJson(Object obj) throws JsonProcessingException {

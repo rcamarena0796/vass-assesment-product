@@ -18,11 +18,15 @@ import org.springframework.data.mongodb.core.mapping.Document;
 public class Product {
 
   @Id
+  @NotNull(message = "id field is mandatory")
   private Long id;
+
   @NotBlank(message = "name field is mandatory")
   private String name;
+
   @NotBlank(message = "technology field is mandatory")
   private String technology;
+
   @NotNull(message = "customerId field is mandatory")
   private Long customerId;
 }

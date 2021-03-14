@@ -8,7 +8,6 @@ import com.vass.assesment.product.dao.ProductRepository;
 import com.vass.assesment.product.model.Product;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Optional;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mock;
@@ -80,9 +79,8 @@ public class ProductServiceTest {
   }
 
   @Test
-  public void whenDelete_thenObjectShouldBeDeleted() {
+  public void testDelete() {
     final Product prodDelete = new Product(3L, "delete test", "aaa", 1L);
-    Optional<Product> optionalProduct = Optional.of(prodDelete);
     productService.deleteProduct(prodDelete);
     Mockito.verify(productRepository, times(1)).delete(prodDelete);
   }
