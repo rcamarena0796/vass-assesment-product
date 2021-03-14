@@ -12,6 +12,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
+import org.springframework.http.converter.HttpMessageNotReadableException;
 import org.springframework.validation.FieldError;
 import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -50,7 +51,7 @@ public class ProductController {
 
   @ApiOperation(value = "Endpoint used to delete a product")
   @DeleteMapping("")
-  public void deleteProduct(@Valid @RequestBody Product product) {
+  public void deleteProduct(@RequestBody Product product) {
     service.deleteProduct(product);
   }
 
@@ -68,6 +69,16 @@ public class ProductController {
       errors.put(fieldName, errorMessage);
     });
     return errors;
+  }
+
+  /**
+   * handleNotReadableExceptions.
+   */
+  @ResponseStatus(HttpStatus.BAD_REQUEST)
+  @ExceptionHandler(HttpMessageNotReadableException.class)
+  public String handleNotReadableExceptions(
+      HttpMessageNotReadableException ex) {
+    return ex.getMessage();
   }
 
 }
